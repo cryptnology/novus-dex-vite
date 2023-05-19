@@ -106,7 +106,7 @@ export const subscribeToEvents = (
   setAccount: (account: string) => void,
   setBalance: (balance: string) => void
 ) => {
-  exchange.on(Transaction.Deposit, (token, user, amount, balance, event) => {
+  exchange.on(Transaction.Deposit, (event) => {
     setTransfer(
       {
         transactionType: Transaction.Deposit,
@@ -120,7 +120,7 @@ export const subscribeToEvents = (
     loadAccount(provider, setAccount, setBalance);
   });
 
-  exchange.on(Transaction.Withdraw, (token, user, amount, balance, event) => {
+  exchange.on(Transaction.Withdraw, (event) => {
     setTransfer(
       {
         transactionType: Transaction.Withdraw,
@@ -134,38 +134,26 @@ export const subscribeToEvents = (
     loadAccount(provider, setAccount, setBalance);
   });
 
-  exchange.on(
-    Transaction.Order,
-    (
-      id,
-      user,
-      tokenGet,
-      amountGet,
-      tokenGive,
-      amountGive,
-      timestamp,
-      event
-    ) => {
-      setOrder(
-        {
-          transactionType: Transaction.NewOrder,
-          isPending: false,
-          isSuccessful: true,
-          isError: false,
-        },
-        false
-      );
-      setExchangeEvent(event);
-      loadAllOrders(
-        provider,
-        exchange,
-        setAllOrders,
-        setCancelledOrders,
-        setFilledOrders
-      );
-      loadAccount(provider, setAccount, setBalance);
-    }
-  );
+  exchange.on(Transaction.Order, (event) => {
+    setOrder(
+      {
+        transactionType: Transaction.NewOrder,
+        isPending: false,
+        isSuccessful: true,
+        isError: false,
+      },
+      false
+    );
+    setExchangeEvent(event);
+    loadAllOrders(
+      provider,
+      exchange,
+      setAllOrders,
+      setCancelledOrders,
+      setFilledOrders
+    );
+    loadAccount(provider, setAccount, setBalance);
+  });
 };
 
 // ---------------------------------------------------------------------
