@@ -18,7 +18,7 @@ const OrderBook = () => {
   );
 
   return (
-    <div className="bg-secondary dark:bg-secondaryDark rounded-xl transition p-5">
+    <div className="bg-secondary dark:bg-secondaryDark rounded-t-xl transition p-5">
       <h2 className="font-bold mb-3 text-lg text-dark dark:text-light transition">
         Order Book
       </h2>

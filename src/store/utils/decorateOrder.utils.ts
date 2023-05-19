@@ -30,7 +30,9 @@ const decorateOrder = (
     token0Amount: ethers.utils.formatUnits(token0Amount, ether),
     token1Amount: ethers.utils.formatUnits(token1Amount, ether),
     tokenPrice,
-    formattedTimetamp: moment.unix(order?.timestamp).format("h:mm:ssa d MMM D"),
+    formattedTimestamp: moment
+      .unix(order?.timestamp)
+      .format("h:mm:ssa d MMM D"),
   };
 };
 

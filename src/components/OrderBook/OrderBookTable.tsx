@@ -17,10 +17,10 @@ const OrderBookTable = ({ orders, tokens, orderType }: Props) => {
         <>
           <thead>
             <tr className="text-xs opacity-50 text-dark dark:text-light transition">
-              <th className="">
+              <th>
                 <span className="flex">
                   {tokens && tokens[0]?.symbol}
-                  <RxCaretSort className="" size={16} />
+                  <RxCaretSort size={16} />
                 </span>
               </th>
               <th>
@@ -28,13 +28,13 @@ const OrderBookTable = ({ orders, tokens, orderType }: Props) => {
                   {`${tokens && tokens[0]?.symbol} / ${
                     tokens && tokens[1]?.symbol
                   }`}
-                  <RxCaretSort className="" size={16} />
+                  <RxCaretSort size={16} />
                 </span>
               </th>
               <th>
                 <span className="flex">
                   {tokens && tokens[1]?.symbol}
-                  <RxCaretSort className="" size={16} />
+                  <RxCaretSort size={16} />
                 </span>
               </th>
             </tr>
