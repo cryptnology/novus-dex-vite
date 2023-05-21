@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import {
   Balance,
   Container,
+  Transactions,
   Order,
   OrderBook,
   PriceChart,
@@ -121,7 +122,10 @@ const App = () => {
           </div>
           <div className="lg:col-span-7 xl:col-span-8 grid gap-4">
             <PriceChart />
-            <Trades />
+            <div className="grid gap-4 xl:grid-cols-2">
+              <Transactions />
+              <Trades />
+            </div>
             <OrderBook />
           </div>
         </main>

@@ -9,6 +9,7 @@ export { default as SelectMarket } from "./SelectMarket";
 export { default as SelectNetwork } from "./SelectNetwork";
 export { default as Logo } from "./Logo";
 export { default as MobileMenu } from "./MobileMenu";
+export { default as Transactions } from "./Transactions";
 export { default as NavBar } from "./NavBar";
 export { Order } from "./Order";
 export { OrderBook } from "./OrderBook";

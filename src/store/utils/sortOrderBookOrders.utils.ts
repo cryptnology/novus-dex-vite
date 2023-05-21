@@ -1,7 +1,7 @@
 import { Contract, ethers } from "ethers";
 import { get, groupBy, reject } from "lodash";
 
-import { decorateOrder } from ".";
+import { decorateOrder, openOrders } from ".";
 
 const GREEN = "text-green-600";
 const RED = "text-red-600";
@@ -59,17 +59,7 @@ const sortOrderBookOrders = (
 ) => {
   let orders: (ethers.utils.Result | undefined)[];
 
-  const openOrders = reject(allOrders.data, (order) => {
-    const ordersFilled = filledOrders.data.some(
-      (o) => o?.id.toString() === order?.id.toString()
-    );
-    const ordersCancelled = cancelledOrders.data.some(
-      (o) => o?.id.toString() === order?.id.toString()
-    );
-    return ordersFilled || ordersCancelled;
-  });
-
-  orders = openOrders?.filter(
+  orders = openOrders(allOrders, cancelledOrders, filledOrders)?.filter(
     (o) =>
       o?.tokenGet === tokens[1]?.token.address ||
       o?.tokenGive === tokens[1]?.token.address
