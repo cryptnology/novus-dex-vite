@@ -1,5 +1,5 @@
 import { Contract, ethers } from "ethers";
-import { get, groupBy, reject } from "lodash";
+import { get, groupBy } from "lodash";
 
 import { decorateOrder, openOrders } from ".";
 
