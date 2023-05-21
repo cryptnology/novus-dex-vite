@@ -51,13 +51,7 @@ const sortPriceChartOrders = (
 
   orders = filledOrders.data?.filter(
     (o) =>
-      o?.tokenGet === tokens[0]?.token.address ||
-      o?.tokenGet === tokens[1]?.token.address
-  );
-
-  orders = filledOrders.data?.filter(
-    (o) =>
-      o?.tokenGive === tokens[0]?.token.address ||
+      o?.tokenGet === tokens[1]?.token.address ||
       o?.tokenGive === tokens[1]?.token.address
   );
 
