@@ -1,29 +1,33 @@
+import { useState } from "react";
 import { RxCaretSort } from "react-icons/rx";
 import { Tab } from "@headlessui/react";
-import { sortUserTransactions } from "../store/utils";
+import { sortUserOrders, sortUserTrades } from "../store/utils";
 import { useExchangeStore, useTokensStore, useUserStore } from "../store";
 import { classNames } from "../utils";
 import { Banner } from ".";
 
 const Transactions = () => {
+  const [title, setTitle] = useState("Orders");
+
   const { account } = useUserStore();
   const { contracts: tokens } = useTokensStore();
   const { allOrders, filledOrders, cancelledOrders } = useExchangeStore();
 
-  const { orders } = sortUserTransactions(
+  const { orders } = sortUserOrders(
     account,
     tokens,
     allOrders,
     cancelledOrders,
     filledOrders
   );
+  const { trades } = sortUserTrades(account, tokens, filledOrders);
 
   return (
     <div className="bg-secondary dark:bg-secondaryDark rounded-xl transition p-5">
       {account ? (
         <>
           <h2 className="font-bold mb-3 text-lg text-dark dark:text-light transition">
-            My Transactions
+            My {title}
           </h2>
           <Tab.Group>
             <Tab.List className="flex space-x-1 rounded-xl bg-light dark:bg-dark p-1 font-bold">
@@ -37,6 +41,7 @@ const Transactions = () => {
                       : "dark:text-light border-[3px] border-transparent hover:border-primary dark:hover:border-primaryDark dark:hover:border-[3px] transition duration-300"
                   )
                 }
+                onClick={() => setTitle("Orders")}
               >
                 Orders
               </Tab>
@@ -49,13 +54,14 @@ const Transactions = () => {
                       : "dark:text-light border-[3px] border-transparent hover:border-primary dark:hover:border-primaryDark dark:hover:border-[3px] transition duration-300"
                   )
                 }
+                onClick={() => setTitle("Transactions")}
               >
                 Trades
               </Tab>
             </Tab.List>
             <Tab.Panels className="mt-6 bg-light dark:bg-dark rounded-xl p-4 transition">
               <Tab.Panel>
-                {orders.length > 0 ? (
+                {orders?.length > 0 ? (
                   <div className="grid sm:flex gap-5">
                     <table className="w-full text-left">
                       <thead>
@@ -98,11 +104,59 @@ const Transactions = () => {
                   </div>
                 ) : (
                   <div className="flex items-center justify-center">
-                    <h3 className="font-semibold">No orders</h3>
+                    <h3 className="font-semibold">No open orders</h3>
                   </div>
                 )}
               </Tab.Panel>
-              <Tab.Panel>Trades</Tab.Panel>
+              <Tab.Panel>
+                {trades?.length > 0 ? (
+                  <div className="grid sm:flex gap-5">
+                    <table className="w-full text-left">
+                      <thead>
+                        <tr className="text-xs opacity-50 text-dark dark:text-light transition">
+                          <th>
+                            <span className="flex">
+                              Time
+                              <RxCaretSort size={16} />
+                            </span>
+                          </th>
+                          <th>{`${tokens && tokens[0]?.symbol}`}</th>
+                          <th>
+                            <span className="flex">
+                              {`${tokens && tokens[0]?.symbol} / ${
+                                tokens && tokens[1]?.symbol
+                              }`}
+                              <RxCaretSort size={16} />
+                            </span>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {trades?.map((order) => (
+                          <tr key={order?.id} className="text-sm">
+                            <td>{order?.formattedTimestamp}</td>
+                            <td
+                              className={`${
+                                order?.orderType === "buy"
+                                  ? "text-green-600 dark:text-green-400"
+                                  : "text-red-600 dark:text-red-500"
+                              } transition`}
+                            >
+                              {order?.orderType === "buy" ? "+" : "-"}
+                              {order?.token0Amount}
+                            </td>
+                            <td>{order?.tokenPrice}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center">
+                    <h3 className="font-semibold">No trades</h3>
+                  </div>
+                )}
+              </Tab.Panel>
             </Tab.Panels>
           </Tab.Group>
         </>

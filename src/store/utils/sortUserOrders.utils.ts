@@ -27,7 +27,7 @@ const decorateUserOpenOrders = (
   });
 };
 
-const sortUserTransactions = (
+const sortUserOrders = (
   account: string,
   tokens: {
     token: Contract;
@@ -66,4 +66,4 @@ const sortUserTransactions = (
   return { orders };
 };
 
-export default sortUserTransactions;
+export default sortUserOrders;
