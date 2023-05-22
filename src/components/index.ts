@@ -1,5 +1,6 @@
 export { default as Balance } from "./Balance";
 export { default as BalanceForm } from "./BalanceForm";
+export { default as Banner } from "./Banner";
 export { default as Button } from "./Button";
 export { default as CheckOutsideClick } from "./CheckOutsideClick";
 export { default as Connect } from "./Connect";

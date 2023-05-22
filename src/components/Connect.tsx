@@ -22,7 +22,7 @@ const Connect = ({ className }: Props) => {
       <div className="pr-4 text-dark dark:text-light flex items-center transition">
         <Wallet className="w-6" />
         <span className="ml-3 text-sm">
-          {balance ? Number(balance).toFixed(4) : "0"}
+          {balance ? Number(balance).toFixed(4) : "0.0"}
           <span className="ml-1 font-bold">ETH</span>
         </span>
       </div>

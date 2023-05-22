@@ -38,12 +38,12 @@ const BalanceForm = ({
       <p>
         <span className="text-sm font-semibold">Wallet</span>
         <br />
-        {tokenBalance}
+        {tokenBalance || "0.0"}
       </p>
       <p>
         <span className="text-sm font-semibold">Exchange</span>
         <br />
-        {exchangeTokenBalance}
+        {exchangeTokenBalance || "0.0"}
       </p>
     </div>
     <form className="mt-4" onSubmit={(e) => transactionHandler(e, token)}>
