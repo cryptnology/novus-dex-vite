@@ -63,7 +63,7 @@ const Transactions = () => {
               <Tab.Panel>
                 {orders?.length > 0 ? (
                   <div className="grid sm:flex gap-5">
-                    <table className="w-full text-left">
+                    <table className="w-full">
                       <thead>
                         <tr className="text-xs opacity-50 text-dark dark:text-light transition">
                           <th>
@@ -73,11 +73,11 @@ const Transactions = () => {
                             </span>
                           </th>
                           <th>
-                            <span className="flex">
+                            <span className="flex justify-end">
+                              <RxCaretSort size={16} />
                               {`${tokens && tokens[0]?.symbol} / ${
                                 tokens && tokens[1]?.symbol
                               }`}
-                              <RxCaretSort size={16} />
                             </span>
                           </th>
                           <th></th>
@@ -92,11 +92,18 @@ const Transactions = () => {
                                 order?.orderType === "buy"
                                   ? "text-green-600 dark:text-green-400"
                                   : "text-red-600 dark:text-red-500"
-                              } transition`}
+                              } transition text-right`}
                             >
                               {order?.tokenPrice}
                             </td>
-                            <td>Cancel</td>
+                            <td className="text-right">
+                              <button
+                                className="px-5 py-2 text-light text-xs font-bold bg-primary rounded-xl hover:bg-light hover:text-dark border border-transparent hover:border-primary dark:bg-primaryDark dark:text-dark dark:hover:text-light dark:hover:border-primaryDark dark:hover:border-[3px] dark:hover:bg-dark transition duration-300"
+                                onClick={() => {}}
+                              >
+                                Cancel
+                              </button>
+                            </td>
                           </tr>
                         ))}
                       </tbody>
@@ -111,7 +118,7 @@ const Transactions = () => {
               <Tab.Panel>
                 {trades?.length > 0 ? (
                   <div className="grid sm:flex gap-5">
-                    <table className="w-full text-left">
+                    <table className="w-full">
                       <thead>
                         <tr className="text-xs opacity-50 text-dark dark:text-light transition">
                           <th>
@@ -120,13 +127,18 @@ const Transactions = () => {
                               <RxCaretSort size={16} />
                             </span>
                           </th>
-                          <th>{`${tokens && tokens[0]?.symbol}`}</th>
-                          <th>
-                            <span className="flex">
+                          <th className="text-right">
+                            <span className="flex justify-end">
+                              <RxCaretSort size={16} />
+                              {`${tokens && tokens[0]?.symbol}`}
+                            </span>
+                          </th>
+                          <th className="text-right">
+                            <span className="flex justify-end">
+                              <RxCaretSort size={16} />
                               {`${tokens && tokens[0]?.symbol} / ${
                                 tokens && tokens[1]?.symbol
                               }`}
-                              <RxCaretSort size={16} />
                             </span>
                           </th>
                         </tr>
@@ -140,12 +152,12 @@ const Transactions = () => {
                                 order?.orderType === "buy"
                                   ? "text-green-600 dark:text-green-400"
                                   : "text-red-600 dark:text-red-500"
-                              } transition`}
+                              } transition text-right`}
                             >
                               {order?.orderType === "buy" ? "+" : "-"}
                               {order?.token0Amount}
                             </td>
-                            <td>{order?.tokenPrice}</td>
+                            <td className="text-right">{order?.tokenPrice}</td>
                           </tr>
                         ))}
                       </tbody>

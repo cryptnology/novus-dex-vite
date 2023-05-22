@@ -24,7 +24,7 @@ const OrderBook = () => {
       </h2>
       <div className="grid sm:flex gap-5">
         {sellOrders.length > 0 ? (
-          <table className="w-full text-left">
+          <table className="w-full">
             <caption className="text-left font-semibold mb-2">Selling</caption>
             <OrderBookTable orders={sellOrders} tokens={tokens} />
           </table>
@@ -36,6 +36,7 @@ const OrderBook = () => {
             </div>
           </div>
         )}
+        <div className="hidden sm:inline-block xl:mx-4" />
         <div className="border border-primary dark:border-primaryDark w-full rounded-xl mt-6 mb-4 sm:hidden" />
         {buyOrders.length > 0 ? (
           <table className="w-full text-left">

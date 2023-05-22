@@ -15,7 +15,7 @@ const Trades = () => {
       </h2>
       {tradeOrders.length > 0 ? (
         <div className="grid sm:flex gap-5">
-          <table className="w-full text-left">
+          <table className="w-full">
             <thead>
               <tr className="text-xs opacity-50 text-dark dark:text-light transition">
                 <th>
@@ -25,17 +25,17 @@ const Trades = () => {
                   </span>
                 </th>
                 <th>
-                  <span className="flex">
-                    {tokens && tokens[0]?.symbol}
+                  <span className="flex justify-end">
                     <RxCaretSort size={16} />
+                    {tokens && tokens[0]?.symbol}
                   </span>
                 </th>
                 <th>
-                  <span className="flex">
+                  <span className="flex justify-end">
+                    <RxCaretSort size={16} />
                     {`${tokens && tokens[0]?.symbol} / ${
                       tokens && tokens[1]?.symbol
                     }`}
-                    <RxCaretSort size={16} />
                   </span>
                 </th>
               </tr>
@@ -44,13 +44,13 @@ const Trades = () => {
               {tradeOrders.map((order) => (
                 <tr key={order.id} className="text-sm">
                   <td>{order.formattedTimestamp}</td>
-                  <td>{order.token0Amount}</td>
+                  <td className="text-right">{order.token0Amount}</td>
                   <td
                     className={`${
                       order.tokenPriceClass === "higher"
                         ? "text-green-600 dark:text-green-400"
                         : "text-red-600 dark:text-red-500"
-                    } transition`}
+                    } transition text-right`}
                   >
                     {order.tokenPrice}
                   </td>
