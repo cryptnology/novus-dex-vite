@@ -18,9 +18,8 @@ const PriceChart = () => {
 
   return (
     <div className="bg-secondary dark:bg-secondaryDark rounded-xl p-5">
-      {account ? (
+      {account && series[0].data.length > 0 ? (
         <>
-          {" "}
           <div className="flex items-center mb-3">
             <h2 className="font-bold text-lg text-dark dark:text-light transition mr-3">{`${tokens[0]?.symbol} / ${tokens[1]?.symbol}`}</h2>
             {lastPriceChange === "+" ? (
@@ -49,7 +48,12 @@ const PriceChart = () => {
           </div>
         </>
       ) : (
-        <Banner className="text-lg lg:text-xl" />
+        <Banner
+          title={
+            !account ? "Please connect to MetaMask" : "No transactional data"
+          }
+          className="text-lg lg:text-xl"
+        />
       )}
     </div>
   );

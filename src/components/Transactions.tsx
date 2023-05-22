@@ -55,59 +55,59 @@ const Transactions = () => {
             </Tab.List>
             <Tab.Panels className="mt-6 bg-light dark:bg-dark rounded-xl p-4 transition">
               <Tab.Panel>
-                <div className="grid sm:flex gap-5">
-                  <table className="w-full text-left">
-                    {orders?.length > 0 ? (
-                      <>
-                        <thead>
-                          <tr className="text-xs opacity-50 text-dark dark:text-light transition">
-                            <th>
-                              <span className="flex">
-                                {tokens && tokens[0]?.symbol}
-                                <RxCaretSort size={16} />
-                              </span>
-                            </th>
-                            <th>
-                              <span className="flex">
-                                {`${tokens && tokens[0]?.symbol} / ${
-                                  tokens && tokens[1]?.symbol
-                                }`}
-                                <RxCaretSort size={16} />
-                              </span>
-                            </th>
-                            <th></th>
+                {orders.length > 0 ? (
+                  <div className="grid sm:flex gap-5">
+                    <table className="w-full text-left">
+                      <thead>
+                        <tr className="text-xs opacity-50 text-dark dark:text-light transition">
+                          <th>
+                            <span className="flex">
+                              {tokens && tokens[0]?.symbol}
+                              <RxCaretSort size={16} />
+                            </span>
+                          </th>
+                          <th>
+                            <span className="flex">
+                              {`${tokens && tokens[0]?.symbol} / ${
+                                tokens && tokens[1]?.symbol
+                              }`}
+                              <RxCaretSort size={16} />
+                            </span>
+                          </th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {orders?.map((order) => (
+                          <tr key={order?.id} className="text-sm">
+                            <td>{order?.token0Amount}</td>
+                            <td
+                              className={`${
+                                order?.orderType === "buy"
+                                  ? "text-green-600 dark:text-green-400"
+                                  : "text-red-600 dark:text-red-500"
+                              } transition`}
+                            >
+                              {order?.tokenPrice}
+                            </td>
+                            <td>Cancel</td>
                           </tr>
-                        </thead>
-                        <tbody>
-                          {orders?.map((order) => (
-                            <tr key={order?.id} className="text-sm">
-                              <td>{order?.token0Amount}</td>
-                              <td
-                                className={`${
-                                  order?.orderType === "buy"
-                                    ? "text-green-600 dark:text-green-400"
-                                    : "text-red-600 dark:text-red-500"
-                                } transition`}
-                              >
-                                {order?.tokenPrice}
-                              </td>
-                              <td>Cancel</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </>
-                    ) : (
-                      <caption className="mt-10">No orders</caption>
-                    )}
-                  </table>
-                </div>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center">
+                    <h3 className="font-semibold">No orders</h3>
+                  </div>
+                )}
               </Tab.Panel>
               <Tab.Panel>Trades</Tab.Panel>
             </Tab.Panels>
           </Tab.Group>
         </>
       ) : (
-        <Banner className="text-lg" />
+        <Banner title="Please connect to MetaMask" className="text-lg" />
       )}
     </div>
   );
