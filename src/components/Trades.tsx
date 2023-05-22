@@ -14,7 +14,7 @@ const Trades = () => {
         Trades
       </h2>
       {tradeOrders.length > 0 ? (
-        <div className="grid sm:flex gap-5 bg-light rounded-xl p-4 dark:bg-dark transition h-[340px] overflow-y-auto">
+        <div className="bg-light rounded-xl p-4 dark:bg-dark transition h-[340px] overflow-y-auto">
           <table className="w-full">
             <thead>
               <tr className="text-xs opacity-50 text-dark dark:text-light transition">

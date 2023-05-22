@@ -41,39 +41,43 @@ const OrderBook = () => {
       <h2 className="font-bold mb-3 text-lg text-dark dark:text-light transition">
         Order Book
       </h2>
-      <div className="grid sm:flex gap-5 bg-light rounded-xl p-4 dark:bg-dark transition h-[280px] overflow-y-auto">
+      <div className="grid sm:grid-cols-2 gap-10 sm:gap-8 md:gap-12 lg:gap-8 xl:gap-20 bg-light rounded-xl p-4 dark:bg-dark transition h-[280px] overflow-y-auto">
         {sellOrders.length > 0 ? (
-          <table className="w-full">
-            <caption className="text-left font-semibold mb-2">Selling</caption>
-            <OrderBookTable
-              orders={sellOrders}
-              tokens={tokens}
-              onClick={fillOrderHandler}
-            />
-          </table>
+          <div className="col-span-1">
+            <table className="w-full text-left">
+              <caption className="text-left font-semibold mb-2">
+                Selling
+              </caption>
+              <OrderBookTable
+                orders={sellOrders}
+                tokens={tokens}
+                onClick={fillOrderHandler}
+              />
+            </table>
+          </div>
         ) : (
           <div className="h-full w-full">
             <h2 className="text-left font-semibold mb-2">Selling</h2>
-            <div className="flex w-full justify-center items-center h-[190px]">
+            <div className="flex w-full justify-center items-center h-3/4 sm:h-[190px]">
               <h3 className="font-semibold">No sell orders</h3>
             </div>
           </div>
         )}
-        <div className="hidden sm:inline-block xl:mx-4" />
-        <div className="border border-primary dark:border-primaryDark w-full rounded-xl mt-6 mb-4 sm:hidden" />
         {buyOrders.length > 0 ? (
-          <table className="w-full text-left">
-            <caption className="text-left font-semibold mb-2">Buying</caption>
-            <OrderBookTable
-              orders={buyOrders}
-              tokens={tokens}
-              onClick={fillOrderHandler}
-            />
-          </table>
+          <div className="col-span-1">
+            <table className="w-full text-left">
+              <caption className="text-left font-semibold mb-2">Buying</caption>
+              <OrderBookTable
+                orders={buyOrders}
+                tokens={tokens}
+                onClick={fillOrderHandler}
+              />
+            </table>
+          </div>
         ) : (
           <div className="h-full w-full">
             <h2 className="text-left font-semibold mb-2">Buying</h2>
-            <div className="flex w-full justify-center items-center h-[190px]">
+            <div className="flex w-full justify-center items-center h-3/4 sm:h-[190px]">
               <h3 className="font-semibold">No buy orders</h3>
             </div>
           </div>
