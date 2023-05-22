@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Contract } from "ethers";
 import { RxCaretSort } from "react-icons/rx";
-import { Result } from "@ethersproject/abi";
 import { Web3Provider } from "@ethersproject/providers";
 import { Tab } from "@headlessui/react";
 import { sortUserOrders, sortUserTrades } from "../store/utils";
@@ -36,11 +35,11 @@ const Transactions = () => {
   );
   const { trades } = sortUserTrades(account, tokens, filledOrders);
 
-  const cancelOrderHandler = (order: Result | undefined) => {
+  const cancelOrderHandler = (orderId: number) => {
     cancelOrder(
       provider as Web3Provider,
       exchange as Contract,
-      Number(order?.id),
+      orderId,
       setOrder
     );
   };
@@ -122,7 +121,9 @@ const Transactions = () => {
                             <td className="text-right">
                               <button
                                 className="px-5 py-2 text-light text-xs font-bold bg-primary rounded-xl hover:bg-light hover:text-dark border border-transparent hover:border-primary dark:bg-primaryDark dark:text-dark dark:hover:text-light dark:hover:border-primaryDark dark:hover:bg-dark transition duration-300"
-                                onClick={() => cancelOrderHandler(order)}
+                                onClick={() =>
+                                  cancelOrderHandler(Number(order?.id))
+                                }
                               >
                                 Cancel
                               </button>

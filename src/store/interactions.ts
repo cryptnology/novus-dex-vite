@@ -127,6 +127,27 @@ export const subscribeToEvents = (
     loadAccount(provider, setAccount, setBalance);
   });
 
+  exchange.on(Transaction.Trade, (event) => {
+    setOrder(
+      {
+        transactionType: Transaction.Trade,
+        isPending: false,
+        isSuccessful: true,
+        isError: false,
+      },
+      false
+    );
+    setExchangeEvent(event);
+    loadAllOrders(
+      provider,
+      exchange,
+      setAllOrders,
+      setCancelledOrders,
+      setFilledOrders
+    );
+    loadAccount(provider, setAccount, setBalance);
+  });
+
   exchange.on(Transaction.Deposit, (event) => {
     setTransfer(
       {
@@ -450,7 +471,7 @@ export const makeSellOrder = async (
 };
 
 // ---------------------------------------------------------------------
-// CANCEL ORDERS
+// CANCEL ORDER
 
 export const cancelOrder = async (
   provider: providers.Web3Provider,
@@ -486,6 +507,52 @@ export const cancelOrder = async (
     setOrder(
       {
         transactionType: Transaction.Cancel,
+        isPending: false,
+        isSuccessful: false,
+        isError: true,
+      },
+      false
+    );
+  }
+};
+
+// ---------------------------------------------------------------------
+// FILL ORDER
+
+export const fillOrder = async (
+  provider: providers.Web3Provider,
+  exchange: Contract,
+  orderId: number,
+  setOrder: (order: OrderType, orderInProgress: boolean) => void
+) => {
+  try {
+    const signer = provider.getSigner();
+    setOrder(
+      {
+        transactionType: Transaction.Trade,
+        isPending: true,
+        isSuccessful: false,
+        isError: false,
+      },
+      true
+    );
+
+    const transaction = await exchange.connect(signer).fillOrder(orderId);
+    await transaction.wait();
+
+    setOrder(
+      {
+        transactionType: Transaction.Trade,
+        isPending: false,
+        isSuccessful: true,
+        isError: false,
+      },
+      false
+    );
+  } catch (error) {
+    setOrder(
+      {
+        transactionType: Transaction.Trade,
         isPending: false,
         isSuccessful: false,
         isError: true,

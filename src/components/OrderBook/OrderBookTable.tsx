@@ -7,9 +7,10 @@ interface Props {
     token: Contract;
     symbol: string;
   }[];
+  onClick: (id: number) => void;
 }
 
-const OrderBookTable = ({ orders, tokens }: Props) => {
+const OrderBookTable = ({ orders, tokens, onClick }: Props) => {
   return (
     <>
       <thead>
@@ -38,7 +39,11 @@ const OrderBookTable = ({ orders, tokens }: Props) => {
       </thead>
       <tbody>
         {orders.map((order) => (
-          <tr key={order.id} className="text-sm">
+          <tr
+            className="text-sm cursor-pointer hover:opacity-60 transition-opacity duration-300"
+            key={order.id}
+            onClick={() => onClick(Number(order.id))}
+          >
             <td>{order.token0Amount}</td>
             <td className="text-right">{order.token1Amount}</td>
             <td
