@@ -9,12 +9,12 @@ const Trades = () => {
   const { tradeOrders } = sortTradeOrders(filledOrders, tokens);
 
   return (
-    <div className="bg-secondary dark:bg-secondaryDark rounded-xl transition p-5">
+    <div className="bg-secondary dark:bg-secondaryDark rounded-xl transition p-5 h-[420px]">
       <h2 className="font-bold mb-3 text-lg text-dark dark:text-light transition">
         Trades
       </h2>
       {tradeOrders.length > 0 ? (
-        <div className="grid sm:flex gap-5">
+        <div className="grid sm:flex gap-5 bg-light rounded-xl p-4 dark:bg-dark transition h-[340px] overflow-y-auto">
           <table className="w-full">
             <thead>
               <tr className="text-xs opacity-50 text-dark dark:text-light transition">
@@ -60,7 +60,7 @@ const Trades = () => {
           </table>
         </div>
       ) : (
-        <div className="flex items-center justify-center lg:h-1/2 xl:h-3/4">
+        <div className="flex items-center justify-center bg-light rounded-xl p-4 dark:bg-dark transition h-[340px]">
           <h3 className="font-semibold">No trades</h3>
         </div>
       )}

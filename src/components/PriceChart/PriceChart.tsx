@@ -17,7 +17,7 @@ const PriceChart = () => {
   );
 
   return (
-    <div className="bg-secondary dark:bg-secondaryDark rounded-xl p-5">
+    <div className="bg-secondary dark:bg-secondaryDark rounded-xl p-5 h-[420px]">
       {account && series[0].data.length > 0 ? (
         <>
           <div className="flex items-center mb-3">
@@ -37,23 +37,25 @@ const PriceChart = () => {
               {lastPrice}
             </span>
           </div>
-          <div className="h-full w-full text-dark dark:text-light">
+          <div className="text-dark dark:text-light bg-light rounded-xl dark:bg-dark transition">
             <Chart
               type="candlestick"
               options={options}
               series={series || []}
               width="100%"
-              height="100%"
+              height="320px"
             />
           </div>
         </>
       ) : (
-        <Banner
-          title={
-            !account ? "Please connect to MetaMask" : "No transactional data"
-          }
-          className="text-lg lg:text-xl"
-        />
+        <div className="text-dark dark:text-light bg-light rounded-xl dark:bg-dark transition h-full">
+          <Banner
+            title={
+              !account ? "Please connect to MetaMask" : "No transactional data"
+            }
+            className="text-lg lg:text-xl"
+          />
+        </div>
       )}
     </div>
   );

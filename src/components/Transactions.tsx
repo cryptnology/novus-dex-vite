@@ -45,7 +45,7 @@ const Transactions = () => {
   };
 
   return (
-    <div className="bg-secondary dark:bg-secondaryDark rounded-xl transition p-5">
+    <div className="bg-secondary dark:bg-secondaryDark rounded-xl transition p-5 h-[420px]">
       {account ? (
         <>
           <h2 className="font-bold mb-3 text-lg text-dark dark:text-light transition">
@@ -81,7 +81,7 @@ const Transactions = () => {
                 Trades
               </Tab>
             </Tab.List>
-            <Tab.Panels className="mt-6 bg-light dark:bg-dark rounded-xl p-4 transition">
+            <Tab.Panels className="mt-6 bg-light dark:bg-dark rounded-xl p-4 transition h-[260px] overflow-y-auto">
               <Tab.Panel>
                 {orders?.length > 0 ? (
                   <div className="grid sm:flex gap-5">
@@ -134,7 +134,7 @@ const Transactions = () => {
                     </table>
                   </div>
                 ) : (
-                  <div className="flex items-center justify-center">
+                  <div className="flex items-center justify-center h-[230px]">
                     <h3 className="font-semibold">No open orders</h3>
                   </div>
                 )}
@@ -188,7 +188,7 @@ const Transactions = () => {
                     </table>
                   </div>
                 ) : (
-                  <div className="flex items-center justify-center">
+                  <div className="flex items-center justify-center h-[230px]">
                     <h3 className="font-semibold">No trades</h3>
                   </div>
                 )}

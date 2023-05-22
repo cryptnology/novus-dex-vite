@@ -37,11 +37,11 @@ const OrderBook = () => {
   };
 
   return (
-    <div className="bg-secondary dark:bg-secondaryDark rounded-t-xl transition p-5">
+    <div className="bg-secondary dark:bg-secondaryDark rounded-t-xl transition p-5 h-[380px]">
       <h2 className="font-bold mb-3 text-lg text-dark dark:text-light transition">
         Order Book
       </h2>
-      <div className="grid sm:flex gap-5">
+      <div className="grid sm:flex gap-5 bg-light rounded-xl p-4 dark:bg-dark transition h-[280px] overflow-y-auto">
         {sellOrders.length > 0 ? (
           <table className="w-full">
             <caption className="text-left font-semibold mb-2">Selling</caption>
@@ -54,7 +54,7 @@ const OrderBook = () => {
         ) : (
           <div className="h-full w-full">
             <h2 className="text-left font-semibold mb-2">Selling</h2>
-            <div className="flex w-full justify-center items-center">
+            <div className="flex w-full justify-center items-center h-[190px]">
               <h3 className="font-semibold">No sell orders</h3>
             </div>
           </div>
@@ -73,7 +73,7 @@ const OrderBook = () => {
         ) : (
           <div className="h-full w-full">
             <h2 className="text-left font-semibold mb-2">Buying</h2>
-            <div className="flex w-full justify-center items-center">
+            <div className="flex w-full justify-center items-center h-[190px]">
               <h3 className="font-semibold">No buy orders</h3>
             </div>
           </div>
