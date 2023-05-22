@@ -106,6 +106,27 @@ export const subscribeToEvents = (
   setAccount: (account: string) => void,
   setBalance: (balance: string) => void
 ) => {
+  exchange.on(Transaction.Cancel, (event) => {
+    setOrder(
+      {
+        transactionType: Transaction.Cancel,
+        isPending: false,
+        isSuccessful: true,
+        isError: false,
+      },
+      false
+    );
+    setExchangeEvent(event);
+    loadAllOrders(
+      provider,
+      exchange,
+      setAllOrders,
+      setCancelledOrders,
+      setFilledOrders
+    );
+    loadAccount(provider, setAccount, setBalance);
+  });
+
   exchange.on(Transaction.Deposit, (event) => {
     setTransfer(
       {
@@ -419,6 +440,52 @@ export const makeSellOrder = async (
     setOrder(
       {
         transactionType: Transaction.NewOrder,
+        isPending: false,
+        isSuccessful: false,
+        isError: true,
+      },
+      false
+    );
+  }
+};
+
+// ---------------------------------------------------------------------
+// CANCEL ORDERS
+
+export const cancelOrder = async (
+  provider: providers.Web3Provider,
+  exchange: Contract,
+  orderId: number,
+  setOrder: (order: OrderType, orderInProgress: boolean) => void
+) => {
+  try {
+    const signer = provider.getSigner();
+    setOrder(
+      {
+        transactionType: Transaction.Cancel,
+        isPending: true,
+        isSuccessful: false,
+        isError: false,
+      },
+      true
+    );
+
+    const transaction = await exchange.connect(signer).cancelOrder(orderId);
+    await transaction.wait();
+
+    setOrder(
+      {
+        transactionType: Transaction.Cancel,
+        isPending: false,
+        isSuccessful: true,
+        isError: false,
+      },
+      false
+    );
+  } catch (error) {
+    setOrder(
+      {
+        transactionType: Transaction.Cancel,
         isPending: false,
         isSuccessful: false,
         isError: true,

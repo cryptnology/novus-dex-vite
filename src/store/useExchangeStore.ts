@@ -4,7 +4,7 @@ import { Contract, Event, ethers } from "ethers";
 import { Transaction as TransactionConst } from "../constants";
 
 export interface Transaction {
-  transactionType: TransactionConst.NewOrder;
+  transactionType: TransactionConst.NewOrder | TransactionConst.Cancel;
   isPending: boolean;
   isSuccessful: boolean;
   isError: boolean;

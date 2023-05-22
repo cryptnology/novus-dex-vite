@@ -1,17 +1,31 @@
 import { useState } from "react";
+import { Contract } from "ethers";
 import { RxCaretSort } from "react-icons/rx";
+import { Result } from "@ethersproject/abi";
+import { Web3Provider } from "@ethersproject/providers";
 import { Tab } from "@headlessui/react";
 import { sortUserOrders, sortUserTrades } from "../store/utils";
-import { useExchangeStore, useTokensStore, useUserStore } from "../store";
+import {
+  cancelOrder,
+  useExchangeStore,
+  useTokensStore,
+  useUserStore,
+} from "../store";
 import { classNames } from "../utils";
 import { Banner } from ".";
 
 const Transactions = () => {
   const [title, setTitle] = useState("Orders");
 
-  const { account } = useUserStore();
+  const { account, provider } = useUserStore();
   const { contracts: tokens } = useTokensStore();
-  const { allOrders, filledOrders, cancelledOrders } = useExchangeStore();
+  const {
+    contract: exchange,
+    allOrders,
+    filledOrders,
+    cancelledOrders,
+    setOrder,
+  } = useExchangeStore();
 
   const { orders } = sortUserOrders(
     account,
@@ -21,6 +35,15 @@ const Transactions = () => {
     filledOrders
   );
   const { trades } = sortUserTrades(account, tokens, filledOrders);
+
+  const cancelOrderHandler = (order: Result | undefined) => {
+    cancelOrder(
+      provider as Web3Provider,
+      exchange as Contract,
+      Number(order?.id),
+      setOrder
+    );
+  };
 
   return (
     <div className="bg-secondary dark:bg-secondaryDark rounded-xl transition p-5">
@@ -98,8 +121,8 @@ const Transactions = () => {
                             </td>
                             <td className="text-right">
                               <button
-                                className="px-5 py-2 text-light text-xs font-bold bg-primary rounded-xl hover:bg-light hover:text-dark border border-transparent hover:border-primary dark:bg-primaryDark dark:text-dark dark:hover:text-light dark:hover:border-primaryDark dark:hover:border-[3px] dark:hover:bg-dark transition duration-300"
-                                onClick={() => {}}
+                                className="px-5 py-2 text-light text-xs font-bold bg-primary rounded-xl hover:bg-light hover:text-dark border border-transparent hover:border-primary dark:bg-primaryDark dark:text-dark dark:hover:text-light dark:hover:border-primaryDark dark:hover:bg-dark transition duration-300"
+                                onClick={() => cancelOrderHandler(order)}
                               >
                                 Cancel
                               </button>
