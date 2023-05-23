@@ -20,19 +20,12 @@ const Alert = () => {
 
   const { events } = sortUserEvents(account, tokenEvents, exchangeEvents);
 
-  const {
-    isPending: isExchangePending,
-    isSuccessful: isExchangeSuccessful,
-    isError: isExchangeError,
-  } = exchangeTransaction as OrderType;
-  const {
-    isPending: isTokenPending,
-    isSuccessful: isTokenSuccessful,
-    isError: isTokenError,
-  } = tokenTransaction as TransactionType;
+  const { isPending: isExchangePending, isError: isExchangeError } =
+    exchangeTransaction as OrderType;
+  const { isPending: isTokenPending, isError: isTokenError } =
+    tokenTransaction as TransactionType;
 
   const isPending = isExchangePending || isTokenPending;
-  const isSuccessful = isExchangeSuccessful || isTokenSuccessful;
   const isError = isExchangeError || isTokenError;
 
   function closeModal() {
