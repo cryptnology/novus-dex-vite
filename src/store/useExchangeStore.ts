@@ -37,7 +37,7 @@ interface ExchangeStore {
   setTokenOneBalance: (balance: string) => void;
   setTokenTwoBalance: (balance: string) => void;
   setOrder: (transaction: Transaction, orderInProgress: boolean) => void;
-  setEvent: (event: Event) => void;
+  setEvents: (event: Event[]) => void;
   setAllOrders: (order: {
     loaded: boolean;
     data: (ethers.utils.Result | undefined)[];
@@ -81,7 +81,7 @@ const useExhangeStore = create<ExchangeStore>((set) => ({
       transaction,
       orderInProgress,
     })),
-  setEvent: (event) => set((store) => ({ events: [...store.events, event] })),
+  setEvents: (events) => set(() => ({ events })),
   setAllOrders: (order) =>
     set((store) => ({
       allOrders: { ...store.allOrders, loaded: order.loaded, data: order.data },

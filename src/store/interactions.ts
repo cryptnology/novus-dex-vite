@@ -88,8 +88,8 @@ export const subscribeToEvents = (
     transferInProgress: boolean
   ) => void,
   setOrder: (order: OrderType, orderInProgress: boolean) => void,
-  setTokenEvent: (event: Event) => void,
-  setExchangeEvent: (event: Event) => void,
+  setTokenEvents: (events: Event[]) => void,
+  setExchangeEvents: (event: Event[]) => void,
   provider: providers.Web3Provider,
   setAllOrders: (order: {
     loaded: boolean;
@@ -106,7 +106,7 @@ export const subscribeToEvents = (
   setAccount: (account: string) => void,
   setBalance: (balance: string) => void
 ) => {
-  exchange.on(Transaction.Cancel, (event) => {
+  exchange.on(Transaction.Cancel, () => {
     setOrder(
       {
         transactionType: Transaction.Cancel,
@@ -116,18 +116,19 @@ export const subscribeToEvents = (
       },
       false
     );
-    setExchangeEvent(event);
     loadAllOrders(
       provider,
       exchange,
       setAllOrders,
       setCancelledOrders,
-      setFilledOrders
+      setFilledOrders,
+      setTokenEvents,
+      setExchangeEvents
     );
     loadAccount(provider, setAccount, setBalance);
   });
 
-  exchange.on(Transaction.Trade, (event) => {
+  exchange.on(Transaction.Trade, () => {
     setOrder(
       {
         transactionType: Transaction.Trade,
@@ -137,18 +138,19 @@ export const subscribeToEvents = (
       },
       false
     );
-    setExchangeEvent(event);
     loadAllOrders(
       provider,
       exchange,
       setAllOrders,
       setCancelledOrders,
-      setFilledOrders
+      setFilledOrders,
+      setTokenEvents,
+      setExchangeEvents
     );
     loadAccount(provider, setAccount, setBalance);
   });
 
-  exchange.on(Transaction.Deposit, (event) => {
+  exchange.on(Transaction.Deposit, () => {
     setTransfer(
       {
         transactionType: Transaction.Deposit,
@@ -158,11 +160,19 @@ export const subscribeToEvents = (
       },
       false
     );
-    setTokenEvent(event);
+    loadAllOrders(
+      provider,
+      exchange,
+      setAllOrders,
+      setCancelledOrders,
+      setFilledOrders,
+      setTokenEvents,
+      setExchangeEvents
+    );
     loadAccount(provider, setAccount, setBalance);
   });
 
-  exchange.on(Transaction.Withdraw, (event) => {
+  exchange.on(Transaction.Withdraw, () => {
     setTransfer(
       {
         transactionType: Transaction.Withdraw,
@@ -172,11 +182,19 @@ export const subscribeToEvents = (
       },
       false
     );
-    setTokenEvent(event);
+    loadAllOrders(
+      provider,
+      exchange,
+      setAllOrders,
+      setCancelledOrders,
+      setFilledOrders,
+      setTokenEvents,
+      setExchangeEvents
+    );
     loadAccount(provider, setAccount, setBalance);
   });
 
-  exchange.on(Transaction.Order, (event) => {
+  exchange.on(Transaction.Order, () => {
     setOrder(
       {
         transactionType: Transaction.NewOrder,
@@ -186,13 +204,14 @@ export const subscribeToEvents = (
       },
       false
     );
-    setExchangeEvent(event);
     loadAllOrders(
       provider,
       exchange,
       setAllOrders,
       setCancelledOrders,
-      setFilledOrders
+      setFilledOrders,
+      setTokenEvents,
+      setExchangeEvents
     );
     loadAccount(provider, setAccount, setBalance);
   });
@@ -267,9 +286,27 @@ export const loadAllOrders = async (
   setFilledOrders: (order: {
     loaded: boolean;
     data: (ethers.utils.Result | undefined)[];
-  }) => void
+  }) => void,
+  setTokenEvents: (events: Event[]) => void,
+  setExchangeEvents: (event: Event[]) => void
 ) => {
   const block = await provider.getBlockNumber();
+
+  // Fetch deposits
+  const depositStream = await exchange.queryFilter(
+    Transaction.Deposit,
+    0,
+    block
+  );
+
+  // Fetch withdraws
+  const withdrawStream = await exchange.queryFilter(
+    Transaction.Withdraw,
+    0,
+    block
+  );
+
+  setTokenEvents([...depositStream, ...withdrawStream]);
 
   // Fetch cancelled orders
   const cancelStream = await exchange.queryFilter(Transaction.Cancel, 0, block);
@@ -286,6 +323,8 @@ export const loadAllOrders = async (
   // Fetch all orders
   const orderStream = await exchange.queryFilter(Transaction.Order, 0, block);
   const allOrders = orderStream.map((event) => event.args);
+
+  setExchangeEvents([...cancelStream, ...tradeStream, ...orderStream]);
 
   setAllOrders({ loaded: true, data: allOrders });
 };

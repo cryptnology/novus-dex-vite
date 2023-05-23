@@ -10,6 +10,7 @@ import {
   PriceChart,
   SelectMarket,
   Trades,
+  Alert,
 } from "../src/components";
 import {
   loadAccount,
@@ -31,13 +32,13 @@ const App = () => {
     setContracts: setTokens,
     setLoaded: setTokensLoaded,
     setTransfer,
-    setEvent: setTokenEvent,
+    setEvents: setTokenEvents,
   } = useTokensStore();
   const {
     setContract: setExchange,
     setLoaded: setExchangeLoaded,
     setOrder,
-    setEvent: setExchangeEvent,
+    setEvents: setExchangeEvents,
     setAllOrders,
     setCancelledOrders,
     setFilledOrders,
@@ -86,15 +87,17 @@ const App = () => {
       exchange,
       setAllOrders,
       setCancelledOrders,
-      setFilledOrders
+      setFilledOrders,
+      setTokenEvents,
+      setExchangeEvents
     );
 
     subscribeToEvents(
       exchange,
       setTransfer,
       setOrder,
-      setTokenEvent,
-      setExchangeEvent,
+      setTokenEvents,
+      setExchangeEvents,
       provider,
       setAllOrders,
       setCancelledOrders,
@@ -127,6 +130,7 @@ const App = () => {
           <OrderBook />
         </div>
       </main>
+      <Alert />
     </Container>
   );
 };

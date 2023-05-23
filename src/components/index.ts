@@ -1,3 +1,4 @@
+export { default as Alert } from "./Alert";
 export { default as Balance } from "./Balance";
 export { default as BalanceForm } from "./BalanceForm";
 export { default as Banner } from "./Banner";

@@ -22,7 +22,7 @@ interface TokensStore {
   setTokenOneBalance: (balance: string) => void;
   setTokenTwoBalance: (balance: string) => void;
   setTransfer: (transaction: Transaction, transferInProgress: boolean) => void;
-  setEvent: (event: Event) => void;
+  setEvents: (events: Event[]) => void;
 }
 
 const useTokensStore = create<TokensStore>((set) => ({
@@ -42,7 +42,7 @@ const useTokensStore = create<TokensStore>((set) => ({
       transaction,
       transferInProgress,
     })),
-  setEvent: (event) => set((store) => ({ events: [...store.events, event] })),
+  setEvents: (events) => set(() => ({ events })),
 }));
 
 export default useTokensStore;
