@@ -24,7 +24,7 @@ import {
   useTokensStore,
   useUserStore,
 } from "../src/store";
-import config from "../src/store/config.json";
+import config from "../src/store/networkConfig.json";
 
 const App = () => {
   const { setProvider, setChainId, setAccount, setBalance } = useUserStore();

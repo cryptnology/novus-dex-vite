@@ -5,7 +5,7 @@ import { Fragment } from "react";
 import { HiOutlineChevronDown } from "react-icons/hi";
 import { Web3Provider } from "@ethersproject/providers";
 
-import config from "../store/config.json";
+import config from "../store/networkConfig.json";
 
 interface Props {
   className?: string;

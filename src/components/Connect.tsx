@@ -2,7 +2,7 @@ import Blockies from "react-blockies";
 import { useUserStore, loadAccount } from "../store";
 import { Wallet } from "../icons";
 
-import config from "../store/config.json";
+import config from "../store/networkConfig.json";
 import { Button } from ".";
 
 interface Props {

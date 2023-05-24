@@ -5,7 +5,7 @@ import { useExchangeStore, useTokensStore, useUserStore } from "../store";
 import { Transaction as TransactionType } from "../store/useTokensStore";
 import { Transaction as OrderType } from "../store/useExchangeStore";
 import { sortUserEvents } from "../store/utils";
-import config from "../store/config.json";
+import config from "../store/networkConfig.json";
 
 import { Button } from ".";
 

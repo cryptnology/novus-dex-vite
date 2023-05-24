@@ -15,6 +15,18 @@
     "explorerURL": "#"
   },
   "5": {
+    "exchange": {
+      "address": "0xCF8A60eDc7a170030bf6dd8c0263F53462b8Fb56"
+    },
+    "novus": {
+      "address": "0xB62f54e3b7d57BDfe65d35b8E8Ce00F5d98a1EF7"
+    },
+    "mETH": {
+      "address": "0xb2593930876B8Eb0dAb7Ff0d62F8CBbA862d2a3d"
+    },
+    "mDAI": {
+      "address": "0xcd3551276D67E811a52cEAf84FF78e6c9658dA5b"
+    },
     "explorerURL": "https://goerli.etherscan.io/"
   }
 }
