@@ -77,7 +77,7 @@ const Alert = () => {
                   ) : (
                     "Transaction Successful"
                   )}
-                  {isError && "Transaction Will Fail"}
+                  {isError && !isPending && "Transaction Will Fail"}
                 </Dialog.Title>
                 {!isPending && !isError && (
                   <div className="mt-2 text-center">
