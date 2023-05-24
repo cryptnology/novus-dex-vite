@@ -62,9 +62,12 @@ const App = () => {
 
     // Load token smart contracts
     // @ts-ignore
-    const novus = config[chainId].novus;
+    const novus = config[chainId]?.novus;
     // @ts-ignore
-    const mETH = config[chainId].mETH;
+    const mETH = config[chainId]?.mETH;
+
+    if (!novus && !mETH) return;
+
     loadTokens(
       provider,
       [novus.address, mETH.address],

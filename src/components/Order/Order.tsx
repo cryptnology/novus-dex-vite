@@ -90,6 +90,7 @@ const Order = () => {
               btnLabel="Buy Order"
               inputLabel="Buy"
               transactionHandler={buyHandler}
+              disabled={tokens.length === 0}
             />
           </Tab.Panel>
           <Tab.Panel>
@@ -101,6 +102,7 @@ const Order = () => {
               btnLabel="Sell Order"
               inputLabel="Sell"
               transactionHandler={sellHandler}
+              disabled={tokens.length === 0}
             />
           </Tab.Panel>
         </Tab.Panels>

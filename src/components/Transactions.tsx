@@ -196,7 +196,7 @@ const Transactions = () => {
         </Tab.Group>
       ) : (
         <div className="flex items-center justify-center bg-light rounded-xl p-4 dark:bg-dark transition h-[340px]">
-          <Banner title="Please connect to MetaMask" className="text-lg" />
+          <Banner title="Please connect to MetaMask" className="text-base" />
         </div>
       )}
     </div>

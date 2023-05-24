@@ -31,7 +31,7 @@ const BalanceForm = ({
         <span className="text-sm font-semibold">Token</span>
         <br />
         <div className="flex items-center">
-          {icon}
+          {tokenSymbol && icon}
           {tokenSymbol}
         </div>
       </div>
@@ -48,14 +48,19 @@ const BalanceForm = ({
     </div>
     <form className="mt-4" onSubmit={(e) => transactionHandler(e, token)}>
       <Input
-        label={`${tokenSymbol} Amount`}
+        label={`${tokenSymbol || ""} Amount`}
         type="text"
         id="token1"
         placeholder="0.0000"
         value={tokenTransferAmount}
         onChange={(e) => amountHandler(e, token)}
       />
-      <Button className="w-full mt-4" label={btnLabel} type="submit" />
+      <Button
+        className="w-full mt-4"
+        label={btnLabel}
+        type="submit"
+        disabled={!tokenSymbol}
+      />
     </form>
   </>
 );

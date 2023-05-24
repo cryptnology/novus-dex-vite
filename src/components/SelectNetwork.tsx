@@ -1,4 +1,4 @@
-import { useUserStore } from "../store";
+import { useTokensStore, useUserStore } from "../store";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { HiOutlineChevronDown } from "react-icons/hi";
@@ -11,6 +11,7 @@ interface Props {
 
 const SelectNetwork = ({ className }: Props) => {
   const { chainId } = useUserStore();
+  const { contracts: tokens } = useTokensStore();
 
   const networkHandler = async (chainId: string) => {
     // @ts-ignore
@@ -24,13 +25,10 @@ const SelectNetwork = ({ className }: Props) => {
     <div className={className}>
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          <Menu.Button
-            className="flex items-center px-4 py-2 text-light font-bold bg-primary rounded-xl hover:bg-light hover:text-dark border-[3px] border-transparent hover:border-primary dark:bg-primaryDark dark:text-dark dark:hover:text-light dark:hover:border-primaryDark dark:hover:border-[3px] dark:hover:bg-dark transition duration-300"
-            disabled={!chainId}
-          >
+          <Menu.Button className="flex items-center px-4 py-2 text-light font-bold bg-primary rounded-xl hover:bg-light hover:text-dark border-[3px] border-transparent hover:border-primary dark:bg-primaryDark dark:text-dark dark:hover:text-light dark:hover:border-primaryDark dark:hover:border-[3px] dark:hover:bg-dark transition duration-300">
             {chainId && chainId === 31337 && "Localhost"}
             {chainId && chainId === 5 && "Goerli"}
-            {!chainId && "Network"}
+            {chainId && tokens.length === 0 && "Choose another network"}
             <HiOutlineChevronDown className="ml-2" size={20} />
           </Menu.Button>
         </div>

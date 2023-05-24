@@ -74,7 +74,7 @@ const Balance = () => {
   const depositHandler = (e: FormEvent<HTMLFormElement>, token: Contract) => {
     e.preventDefault();
 
-    if (token.address === tokens[0].token.address) {
+    if (token.address === tokens[0]?.token.address) {
       transferTokens(
         provider as Web3Provider,
         exchange as Contract,
@@ -100,7 +100,7 @@ const Balance = () => {
   const withdrawHandler = (e: FormEvent<HTMLFormElement>, token: Contract) => {
     e.preventDefault();
 
-    if (token.address === tokens[0].token.address) {
+    if (token.address === tokens[0]?.token.address) {
       transferTokens(
         provider as Web3Provider,
         exchange as Contract,
