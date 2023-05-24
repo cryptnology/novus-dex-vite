@@ -133,7 +133,7 @@ const Transactions = () => {
                   </table>
                 </div>
               ) : (
-                <div className="flex items-center justify-center h-[230px]">
+                <div className="flex items-center justify-center mt-[6.3rem]">
                   <h3 className="font-semibold">No open orders</h3>
                 </div>
               )}
@@ -187,7 +187,7 @@ const Transactions = () => {
                   </table>
                 </div>
               ) : (
-                <div className="flex items-center justify-center h-[230px]">
+                <div className="flex items-center justify-center mt-[6.3rem]">
                   <h3 className="font-semibold">No trades</h3>
                 </div>
               )}
