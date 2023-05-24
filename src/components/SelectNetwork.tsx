@@ -28,7 +28,7 @@ const SelectNetwork = ({ className }: Props) => {
           <Menu.Button className="flex items-center px-4 py-2 text-light font-bold bg-primary rounded-xl hover:bg-light hover:text-dark border-[3px] border-transparent hover:border-primary dark:bg-primaryDark dark:text-dark dark:hover:text-light dark:hover:border-primaryDark dark:hover:border-[3px] dark:hover:bg-dark transition duration-300">
             {chainId && chainId === 31337 && tokens.length > 0 && "Localhost"}
             {chainId && chainId === 5 && tokens.length > 0 && "Goerli"}
-            {chainId && tokens.length === 0 && "Network"}
+            {tokens?.length === 0 && "Network"}
             <HiOutlineChevronDown className="ml-2" size={20} />
           </Menu.Button>
         </div>
