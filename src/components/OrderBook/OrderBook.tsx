@@ -11,14 +11,22 @@ import {
 import OrderBookTable from "./OrderBookTable";
 
 const OrderBook = () => {
-  const { provider } = useUserStore();
-  const { contracts: tokens } = useTokensStore();
+  const { provider, account } = useUserStore();
+  const {
+    contracts: tokens,
+    setTokenOneBalance,
+    setTokenTwoBalance,
+    setLoaded,
+  } = useTokensStore();
   const {
     contract: exchange,
     allOrders,
     cancelledOrders,
     filledOrders,
     setOrder,
+    setTokenOneBalance: setExchangeTokenOneBalance,
+    setTokenTwoBalance: setExchangeTokenTowBalance,
+    setLoaded: setExchangeLoaded,
   } = useExchangeStore();
 
   const { buyOrders, sellOrders } = sortOrderBookOrders(
@@ -32,7 +40,15 @@ const OrderBook = () => {
       provider as Web3Provider,
       exchange as Contract,
       orderId,
-      setOrder
+      setOrder,
+      tokens,
+      account,
+      setTokenOneBalance,
+      setTokenTwoBalance,
+      setLoaded,
+      setExchangeTokenOneBalance,
+      setExchangeTokenTowBalance,
+      setExchangeLoaded
     );
   };
 

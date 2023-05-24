@@ -562,7 +562,15 @@ export const fillOrder = async (
   provider: providers.Web3Provider,
   exchange: Contract,
   orderId: number,
-  setOrder: (order: OrderType, orderInProgress: boolean) => void
+  setOrder: (order: OrderType, orderInProgress: boolean) => void,
+  tokens: { token: Contract; symbol: string }[],
+  account: string,
+  setTokenOneBalance: (balance: string) => void,
+  setTokenTwoBalance: (balance: string) => void,
+  setLoaded: (loaded: boolean) => void,
+  setExchangeTokenOneBalance: (balance: string) => void,
+  setExchangeTokenTwoBalance: (balance: string) => void,
+  setExchangeLoaded: (loaded: boolean) => void
 ) => {
   try {
     const signer = provider.getSigner();
@@ -587,6 +595,17 @@ export const fillOrder = async (
         isError: false,
       },
       false
+    );
+    loadBalances(
+      exchange as Contract,
+      tokens,
+      account,
+      setTokenOneBalance,
+      setTokenTwoBalance,
+      setLoaded,
+      setExchangeTokenOneBalance,
+      setExchangeTokenTwoBalance,
+      setExchangeLoaded
     );
   } catch (error) {
     setOrder(
