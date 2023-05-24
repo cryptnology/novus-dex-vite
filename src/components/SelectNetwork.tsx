@@ -29,7 +29,9 @@ const SelectNetwork = ({ className }: Props) => {
             {chainId && chainId === 31337 && tokens.length > 0
               ? "Localhost"
               : "Network"}
-            {chainId && chainId === 5 && "Goerli"}
+            {chainId && chainId === 5 && tokens.length > 0
+              ? "Goerli"
+              : "Network"}
             <HiOutlineChevronDown className="ml-2" size={20} />
           </Menu.Button>
         </div>
