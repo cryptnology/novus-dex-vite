@@ -31,7 +31,7 @@ const OrderForm = ({
           label={`${inputLabel} Amount`}
           type="text"
           id="amount"
-          placeholder="0.0000"
+          placeholder="0.00000"
           value={amount}
           onChange={(e) => amountHandler(e.target.value)}
         />
@@ -39,7 +39,7 @@ const OrderForm = ({
           label={`${inputLabel} Price`}
           type="text"
           id="price"
-          placeholder="0.0000"
+          placeholder="0.00000"
           value={price}
           onChange={(e) => priceHandler(e.target.value)}
         />

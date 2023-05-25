@@ -51,7 +51,7 @@ const BalanceForm = ({
         label={`${tokenSymbol || ""} Amount`}
         type="text"
         id="token1"
-        placeholder="0.0000"
+        placeholder="0.00000"
         value={tokenTransferAmount}
         onChange={(e) => amountHandler(e, token)}
       />

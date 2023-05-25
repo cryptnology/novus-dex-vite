@@ -10,6 +10,8 @@ interface Props {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
+const regex = /^\d+\.?\d{0,5}$/;
+
 const Input = ({
   className,
   id,
@@ -30,7 +32,9 @@ const Input = ({
         id={id}
         placeholder={placeholder}
         value={value}
-        onChange={onChange}
+        onChange={(e) => {
+          if (e.target.value === "" || regex.test(e.target.value)) onChange(e);
+        }}
       />
     </>
   );
